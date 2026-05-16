@@ -5,7 +5,7 @@ Outer ring = 5-hour window, inner ring = 7-day window.
 Zones: green (0–75 %), amber (75–90 %), red (90–100 %).
 """
 
-import getpass, json, re, subprocess, sys, threading, time, tkinter as tk
+import argparse, getpass, json, re, subprocess, sys, threading, time, tkinter as tk
 from pathlib import Path
 import httpx
 
@@ -312,4 +312,19 @@ class App(tk.Tk):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Claude Usage Monitor — dial gauge")
+    parser.add_argument("--green", type=int, default=GRN_PCT, metavar="PCT",
+                        help=f"upper bound of green zone (default {GRN_PCT})")
+    parser.add_argument("--amber", type=int, default=AMB_PCT, metavar="PCT",
+                        help=f"upper bound of amber zone (default {AMB_PCT})")
+    parser.add_argument("--refresh", type=int, default=REFRESH_SEC, metavar="SEC",
+                        help=f"auto-refresh interval in seconds (default {REFRESH_SEC})")
+    args = parser.parse_args()
+    if not (0 < args.green < args.amber <= 100):
+        parser.error("--green must be less than --amber, both in 1–100")
+    if args.refresh < 10:
+        parser.error("--refresh must be at least 10 seconds")
+    GRN_PCT = args.green
+    AMB_PCT = args.amber
+    REFRESH_SEC = args.refresh
     App().mainloop()

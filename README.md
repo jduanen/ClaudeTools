@@ -71,6 +71,8 @@ Anthropic exposes two rate limit windows. `active_window` tells you which one is
 
 Graphical desktop app showing the same rate limit information. Updates automatically every 5 minutes with a live countdown; click **⟳ Refresh** to update immediately.
 
+![Claude Usage Monitor GUI](images/gui-screenshot.png)
+
 ### Usage
 
 ```bash

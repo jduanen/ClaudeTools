@@ -85,6 +85,12 @@ Or run directly (executable bit is set):
 scripts/claudeUsageGUI.py
 ```
 
+### Options
+
+```
+--refresh SEC   auto-refresh interval in seconds (default 300)
+```
+
 ### Display
 
 The window shows:
@@ -122,15 +128,29 @@ Or run directly (executable bit is set):
 scripts/claudeUsageDialGUI.py
 ```
 
+### Options
+
+```
+--refresh SEC   auto-refresh interval in seconds (default 300)
+--green PCT     upper bound of green zone (default 75)
+--amber PCT     upper bound of amber zone (default 90)
+```
+
+All three options are independent and can be combined:
+
+```bash
+scripts/claudeUsageDialGUI.py --refresh 60 --green 60 --amber 80
+```
+
 ### Display
 
 Each ring sweeps 240° from lower-left to lower-right through the top. The arc is divided into three colour zones:
 
 | Zone | Range | Colour |
 |---|---|---|
-| Normal | 0 – 75 % | Green |
-| Warning | 75 – 90 % | Amber |
-| Critical | 90 – 100 % | Red |
+| Normal | 0 – `--green` % | Green |
+| Warning | `--green` – `--amber` % | Amber |
+| Critical | `--amber` – 100 % | Red |
 
 The lit portion of each ring shows current usage; the remainder of the arc is shown as a dim background so zone boundaries are always visible. Current percentages are displayed in the centre. Reset times, status, active window, and overage state appear below the dial.
 

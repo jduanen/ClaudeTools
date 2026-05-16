@@ -101,3 +101,39 @@ Progress bars and percentages are coloured green (< 50%), yellow (50–80%), or 
 ### Credentials
 
 Same as `claudeUsage.py` — reads from the Claude Code credential store automatically.
+
+---
+
+## scripts/claudeUsageDialGUI.py
+
+Alternative graphical display using two concentric dial gauges instead of progress bars. Outer ring = 5-hour window, inner ring = 7-day window. Same auto-refresh and manual refresh behaviour as `claudeUsageGUI.py`.
+
+![Claude Usage Monitor dial GUI](images/dial-gui-screenshot.png)
+
+### Usage
+
+```bash
+python3 scripts/claudeUsageDialGUI.py
+```
+
+Or run directly (executable bit is set):
+
+```bash
+scripts/claudeUsageDialGUI.py
+```
+
+### Display
+
+Each ring sweeps 240° from lower-left to lower-right through the top. The arc is divided into three colour zones:
+
+| Zone | Range | Colour |
+|---|---|---|
+| Normal | 0 – 75 % | Green |
+| Warning | 75 – 90 % | Amber |
+| Critical | 90 – 100 % | Red |
+
+The lit portion of each ring shows current usage; the remainder of the arc is shown as a dim background so zone boundaries are always visible. Current percentages are displayed in the centre. Reset times, status, active window, and overage state appear below the dial.
+
+### Credentials
+
+Same as `claudeUsage.py` — reads from the Claude Code credential store automatically.

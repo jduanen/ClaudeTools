@@ -4,6 +4,7 @@ Claude Usage Monitor — graphical rate limit status display.
 Refreshes every 5 minutes; click Refresh to update immediately.
 """
 
+import argparse
 import getpass
 import json
 import re
@@ -297,4 +298,11 @@ class App(tk.Tk):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Claude Usage Monitor — progress bars")
+    parser.add_argument("--refresh", type=int, default=REFRESH_SEC, metavar="SEC",
+                        help=f"auto-refresh interval in seconds (default {REFRESH_SEC})")
+    args = parser.parse_args()
+    if args.refresh < 10:
+        parser.error("--refresh must be at least 10 seconds")
+    REFRESH_SEC = args.refresh
     App().mainloop()
